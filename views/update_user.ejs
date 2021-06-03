@@ -1,0 +1,60 @@
+<!--including the header-->
+<%- include('include/_header')%>
+
+<!--main section-->
+<main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex justify-between">
+           <div class="filter">
+               <a href="/">
+                <i class="fas fa-angle-double-left"></i>
+                All Users 
+                </a>
+           </div>
+        </div>
+        <div class="form-title text-center">
+           <h2 class="text-dark">Update User</h2> 
+           <span class="text-light">Use the below form to update the account.</span>
+        </div>
+        <!--update user form-->
+        <!--form handling-->
+<form  method="POST" id="update_user">
+    <div class="new_user">
+        <div class="form-group">
+            <label for="name" class="text-light">Name</label>
+            <input type="hidden" name="id" value="">
+            <input type="text" name="name" value="" placeholder="Enter the name">
+        </div>
+        <div class="form-group">
+            <label for="email" class="text-light">Email</label>
+            <input type="email" name="email" value="" placeholder="example@gmail.com">
+        </div>
+        <div class="form-group">
+            <label for="phone_number" class="text-light">Phone Number</label>
+            <input type="number" name="phone_number" value="" placeholder="0123456789">
+        </div>
+        <div class="form-group">
+            <label for="gender" class="text-light">Gender</label>
+            <div class="radio inline">
+                <input type="radio" id="radio-2" name="gender" value="Male" >
+                <label for="radio-2" class="radio-label">Male</label>
+            </div>
+            <div class="radio inline">
+                <input type="radio" id="radio-3" name="gender" value="Female" >
+                <label for="radio-3" class="radio-label">Female</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="text-light">Address</label>
+            <input type="text" name="address" value="" placeholder="Enter you address">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn text-dark update">Save</button>
+        </div>
+    </div>
+</form>
+    </div>
+</main>
+
+<!--including the footer-->
+<%- include('include/_footer')%>
