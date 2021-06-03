@@ -32,21 +32,70 @@ exports.create = (req,res) => {
 
 //return all users/a single user
 exports.find = (req,res) => {
-    Userdb.find()
-    .then(user => {
-        res.send(user)
-    })
-    .catch(err => {
-        res.status(500).send({message:err.message || "Error occured while getting the user information."})
-    })
+    if(req.query.id){
+        const id = req.query.id
+        Userdb.findById(id)
+            .then(data => {
+                if(!data){
+                    res.status(404).send({message:`User with id: ${id} not found.`})
+                }else{
+                    res.send(data)
+                }
+            })
+            .catch(err => {
+                res.status(500).send({message:`Error in getting the user with id: ${id}`})
+            })
+    }else{
+        Userdb.find()
+        .then(user => {
+            res.send(user)
+        })
+        .catch(err => {
+            res.status(500).send({message:err.message || "Error occured while getting the user information."})
+        })
+    }
 }
 
 //update user
 exports.update = (req,res) => {
-    
+    if(!req.body){
+        return res
+            .status(400)
+            .send({message:"Data to update can't be empty"})
+    }
+
+    const id = req.params.id;
+    Userdb.findByIdAndUpdate(id, req.body, {useFindAndModify:false})
+        .then(data => {
+            if(!data){
+                res.status(404).send({message : `Cannot update the user with ${id}.`})
+            }else{
+                res.send(data)
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ message:"Error while updating the user information"})
+        })
 }
 
 //delete a user
 exports.delete = (req,res) => {
-    
+    const id = req.params.id;
+
+    Userdb.findByIdAndDelete(id)
+        .then(data => {
+            if(!data){
+                res.status(404).send({message:`Cannot delete with ${id}`})
+            }else{
+                res.send({
+                    message: "User was deleted successfully"
+                })
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message :`cannot delete user with id : ${id}`
+            })
+        })
+
 }
